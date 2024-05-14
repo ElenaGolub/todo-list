@@ -77,6 +77,12 @@ class App extends React.Component {
         });
     }
 
+    onSearchChange = (search) => {
+        this.setState({
+            search: search
+        });
+    }
+
     addItem = (text) => {
         const newItem = {
             label: text,
@@ -99,7 +105,7 @@ class App extends React.Component {
 
     render() {
 
-        const { todoData, filter } = this.state;
+        const { todoData, filter, search } = this.state;
 
         const doneCount = this.state.todoData.filter((el) => el.done).length;
         const todoCount = this.state.todoData.length - doneCount;
@@ -118,12 +124,14 @@ class App extends React.Component {
             }
         });
 
+        const serchabledFiltered = filtered.filter((item) => item.label.toUpperCase().indexOf(this.state.search.toUpperCase()) >= 0);
+
         return (<div className="app-todo">
             <AppHeader toDo={todoCount} done={doneCount} />
-            <SearchBar />
+            <SearchBar onSearchChange={this.onSearchChange} />
             <StatusFilter filter={filter} onFilterChange={this.onFilterChange} />
             <TodoList
-                todos={filtered}
+                todos={serchabledFiltered}
                 onDelete={this.deleteItem}
                 onToggleImportant={this.onToggleImportant}
                 onToggleDone={this.onToggleDone}

@@ -1,5 +1,4 @@
 import TodoListItem from '../TodoListItem';
-//import './index.css';
 
 const TodoList = ({ todos, onToggleImportant, onToggleDone, onDelete }) => {
 
